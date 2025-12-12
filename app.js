@@ -4,9 +4,19 @@ function createFloatingHearts() {
     const heartSymbols = ['❤️', '💕', '💖', '💗', '💝', '💓', '💞'];
     const butterflyGif = 'https://dl.dropbox.com/scl/fi/2u8j33dy17682nnvfshv6/AnimatedEmojies-512px-366.gif?rlkey=cjz2i4c4cyg8jtfrjuib6msu3&st=a53v60sj&dl=1';
     
+    // Reduce frequency and count on mobile
+    const isMobile = window.innerWidth <= 768;
+    const interval = isMobile ? 800 : 400;
+    const butterflyChance = isMobile ? 0.7 : 0.6;
+    
     setInterval(() => {
+        // Skip on mobile if too many elements
+        if (isMobile && container.children.length > 10) {
+            return;
+        }
+        
         // Randomly choose between heart emoji or butterfly gif
-        const useButterfly = Math.random() > 0.6; // 40% chance for butterfly
+        const useButterfly = Math.random() > butterflyChance;
         
         if (useButterfly) {
             const butterfly = document.createElement('img');
@@ -16,6 +26,7 @@ function createFloatingHearts() {
             butterfly.style.width = (Math.random() * 40 + 30) + 'px';
             butterfly.style.animationDuration = (Math.random() * 4 + 5) + 's';
             butterfly.style.animationDelay = Math.random() * 2 + 's';
+            butterfly.loading = 'lazy';
             
             container.appendChild(butterfly);
             
@@ -37,7 +48,7 @@ function createFloatingHearts() {
                 heart.remove();
             }, 8000);
         }
-    }, 400);
+    }, interval);
 }
 
 // Navigate between screens
@@ -95,10 +106,28 @@ function createHeartBurst() {
 
 // Handle Yes button
 function handleYes() {
+    // First show celebration
     nextScreen(5);
     createFireworks();
     createMassiveHeartExplosion();
     playConfetti();
+    
+    // After 2 seconds, open WhatsApp
+    setTimeout(() => {
+        const phoneNumber = '919188461264';
+        const message = encodeURIComponent('Yes! 💕 I accept your proposal! ❤️');
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+    }, 2000);
+}
+
+// Handle No button
+function handleNo() {
+    const phoneNumber = '919188461264';
+    const message = encodeURIComponent('Sorry 😔 I need to say no...');
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+    return false;
 }
 
 // Move No button on hover (playful interaction)
@@ -107,8 +136,8 @@ function moveNoButton() {
     const maxX = window.innerWidth - noBtn.offsetWidth - 100;
     const maxY = window.innerHeight - noBtn.offsetHeight - 100;
     
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
+    const randomX = Math.max(50, Math.random() * maxX);
+    const randomY = Math.max(50, Math.random() * maxY);
     
     noBtn.style.position = 'fixed';
     noBtn.style.left = randomX + 'px';
@@ -120,19 +149,21 @@ function moveNoButton() {
 function createFireworks() {
     const container = document.getElementById('fireworks');
     const colors = ['#ff6b6b', '#ee5a6f', '#f093fb', '#f5576c', '#38ef7d', '#11998e'];
+    const isMobile = window.innerWidth <= 768;
     
     function createSingleFirework() {
         const x = Math.random() * window.innerWidth;
         const y = Math.random() * (window.innerHeight * 0.5);
+        const particleCount = isMobile ? 15 : 30; // Reduce particles on mobile
         
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'firework';
             particle.style.left = x + 'px';
             particle.style.top = y + 'px';
             particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
             
-            const angle = (Math.PI * 2 * i) / 30;
+            const angle = (Math.PI * 2 * i) / particleCount;
             const velocity = 100 + Math.random() * 100;
             const xVel = Math.cos(angle) * velocity;
             const yVel = Math.sin(angle) * velocity;
@@ -146,15 +177,17 @@ function createFireworks() {
         }
     }
     
-    // Create multiple fireworks
-    for (let i = 0; i < 5; i++) {
+    // Create fewer fireworks on mobile
+    const initialCount = isMobile ? 3 : 5;
+    for (let i = 0; i < initialCount; i++) {
         setTimeout(createSingleFirework, i * 300);
     }
     
     // Continue creating fireworks
+    const interval = isMobile ? 2000 : 1500;
     setInterval(() => {
         createSingleFirework();
-    }, 1500);
+    }, interval);
 }
 
 // Create massive heart explosion
@@ -195,8 +228,10 @@ function createMassiveHeartExplosion() {
 // Confetti effect
 function playConfetti() {
     const colors = ['#ff6b6b', '#ee5a6f', '#f093fb', '#f5576c', '#38ef7d', '#11998e', '#ffd93d', '#ff9ff3'];
+    const isMobile = window.innerWidth <= 768;
+    const confettiCount = isMobile ? 50 : 100; // Reduce confetti on mobile
     
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < confettiCount; i++) {
         setTimeout(() => {
             const confetti = document.createElement('div');
             confetti.style.position = 'fixed';
@@ -208,6 +243,7 @@ function playConfetti() {
             confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
             confetti.style.zIndex = '1000';
             confetti.style.pointerEvents = 'none';
+            confetti.style.willChange = 'transform';
             
             document.body.appendChild(confetti);
             
