@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Sandra ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Intro Screen -->
+        <div class="screen active" id="introScreen">
+            <div class="content fade-in">
+                <div class="intro-heart-container">
+                    <img src="https://dl.dropbox.com/scl/fi/2w22tuzcyjo6ul6v3h0v2/AnimatedEmojies-512px-42.gif?rlkey=lfxg8xvs3k2ygd8qqfecfltgr&st=ddmzwlhz&dl=1" alt="Love Arrow" class="heart-arrow-gif">
+                </div>
+                <h1 class="glowing-text">Hello Sandra...</h1>
+                <p class="subtitle">I have something special to tell you</p>
+                <button class="btn pulse" onclick="nextScreen(1)">Click Here ❤️</button>
+            </div>
+        </div>
+
+        <!-- Journey Screen 1 -->
+        <div class="screen" id="screen1">
+            <div class="content slide-in">
+                <div class="photo-frame">
+                    <img src="https://dl.dropbox.com/scl/fi/58fo1zp0mpr7p629q0w96/AnimatedEmojies-512px-174.gif?rlkey=ie6qqmx8l6ly8kto27rd0aokv&st=awrielw1&dl=1" alt="Love" class="love-gif">
+                </div>
+                <h2 class="romantic-text">From the moment I saw you...</h2>
+                <p class="message">My world became more colorful, more beautiful, more meaningful.</p>
+                <button class="btn" onclick="nextScreen(2)">Continue ➤</button>
+            </div>
+        </div>
+
+        <!-- Journey Screen 2 -->
+        <div class="screen" id="screen2">
+            <div class="content slide-in">
+                <div class="photo-frame">
+                    <img src="https://dl.dropbox.com/scl/fi/7yx7pqsv3pbluqw9z8u8p/AnimatedEmojies-512px-176.gif?rlkey=kc8a4ej83ts3mocouy85bejz1&st=4sesel43&dl=1" alt="Beating Heart" class="love-gif">
+                </div>
+                <h2 class="romantic-text">Every smile you share...</h2>
+                <p class="message">Lights up my entire day and makes my heart skip a beat.</p>
+                <button class="btn" onclick="nextScreen(3)">Continue ➤</button>
+            </div>
+        </div>
+
+        <!-- Journey Screen 3 -->
+        <div class="screen" id="screen3">
+            <div class="content slide-in">
+                <div class="photo-frame">
+                    <img src="https://dl.dropbox.com/scl/fi/7yx7pqsv3pbluqw9z8u8p/AnimatedEmojies-512px-176.gif?rlkey=kc8a4ej83ts3mocouy85bejz1&st=4sesel43&dl=1" alt="Beating Heart" class="love-gif beating-heart">
+                </div>
+                <h2 class="romantic-text">Your kindness, your laugh...</h2>
+                <p class="message">Everything about you makes me fall deeper in love every single day.</p>
+                <button class="btn" onclick="nextScreen(4)">Continue ➤</button>
+            </div>
+        </div>
+
+        <!-- The Big Question -->
+        <div class="screen" id="screen4">
+            <div class="content zoom-in">
+                <div class="proposal-box">
+                    <div class="proposal-heart-container">
+                        <img src="https://dl.dropbox.com/scl/fi/2w22tuzcyjo6ul6v3h0v2/AnimatedEmojies-512px-42.gif?rlkey=lfxg8xvs3k2ygd8qqfecfltgr&st=ddmzwlhz&dl=1" alt="Love Arrow" class="heart-arrow-proposal">
+                    </div>
+                    <h1 class="proposal-text">Sandra,</h1>
+                    <h2 class="proposal-question">Will you be my girlfriend?</h2>
+                    <div class="ring-animation">💍</div>
+                    <div class="button-group">
+                        <button class="btn btn-yes" id="yesBtn" onclick="handleYes()">Yes! 💕</button>
+                        <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()" onclick="return false;">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Celebration Screen -->
+        <div class="screen" id="celebrationScreen">
+            <div class="content celebration">
+                <div class="celebration-heart-container">
+                    <img src="https://dl.dropbox.com/scl/fi/c2ejrma0w32fvnkbcdfxf/AnimatedEmojies-512px-1.gif?rlkey=y2ixq9kbtpixbnkfq3135d1hf&st=1446ayw0&dl=1" alt="Red Heart" class="red-heart-gif">
+                </div>
+                <h1 class="celebration-text">You made me the happiest! 🎉</h1>
+                <p class="final-message">I promise to always make you smile, support you, and love you with all my heart.</p>
+                <div class="fireworks" id="fireworks"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
